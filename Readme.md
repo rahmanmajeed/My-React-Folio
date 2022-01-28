@@ -37,9 +37,9 @@ npm i webpack webpack-cli webpack-dev-server
 
 ```bash
   ...
-  |/
-  |-src
-  | |- index.js
+  |-/
+  | |-src
+  |   |- index.js
   |...
 ```
 
@@ -98,6 +98,8 @@ entry: {
 4. add custom output path
 
 ```javascript
+const path = require('path');
+
 output:{
     filename:"main.js",
     path: path.resolve(__dirname,"dist"),
@@ -119,4 +121,102 @@ yarn add -D webpack-dev-server
     "start": "webpack-dev-server --mode development",
     "build": "webpack --mode production"
   },
+```
+
+### Configure [HTML](https://www.w3schools.com/html/)
+
+1. install `html-webpack-plugin`
+
+```sh
+yarn add html-webpack-plugin
+or
+npm i html-webpack-plugin -D
+
+```
+
+2. configure plugin inside `webpack.config.js`
+
+```javascript
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+plugins: [
+  new HtmlWebpackPlugin({
+    template: "./public/index.html",
+    filename: "./index.html",
+  }),
+];
+```
+
+3. create `index.html`
+
+```bash
+    ...
+    |-/
+    | |-public
+    | | |-index.html
+    | |-...
+
+```
+
+### Configure [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) compilation using [Babel](https://babeljs.io/) in [webpack](https://webpack.js.org/)
+
+1. install `@babel/core`, `babel-loader`, `@babel/preset-env` package.
+
+```sh
+yarn add babel-loader @babel/core @babel/preset-env
+or
+npm i babel-loader @babel/core @babel/preset-env
+```
+
+2. install `babel` devDependencies `@babel/cli` & `@babel/plugin-transform-runtime`
+
+```sh
+yarn add -D @babel/cli @babel/plugin-transform-runtime
+or
+npm i --save-dev @babel/cli @babel/plugin-transform-runtime
+```
+
+> @babel/plugin-transform-runtime re-use of Babel's injected helper in development
+
+3. install `@babel/runtime` package
+
+```sh
+yarn add @babel/runtime
+or
+npm i @babel/runtime
+```
+
+> @babel/runtime re-use of Babel's injected helper/module in production
+
+4. configure `babel-loader` in `webpack.config.js`
+
+```javascript
+module: {
+  rules: [
+    {
+      // "test" identify which files & folders should be transformed
+      type: /\.js$/,
+      // "use" indicate which loaders should be used for transforming.
+      use: {
+        // if here only "babel-loader" you can load  options section from `.babelrc` file `presets
+        loader: "babel-loader",
+      },
+      exclude: /node_modules/,
+    },
+  ];
+}
+```
+
+5. set `babel` presets & plugins in `.babelrc` file project root
+
+```sh
+touch .babelrc
+```
+
+```bash
+    ...
+    |-/
+    | |-.babelrc
+    |...
+
 ```
