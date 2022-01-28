@@ -33,7 +33,7 @@ npm i webpack webpack-cli webpack-dev-server
   },
 ```
 
-- Create an `entry` point for app by -`Create a _src_ folder and create an _index.js_ file inside it.`
+- Create an `entry` point for app by -`Create a src folder and create an index.js file inside it.`
 
 ```bash
   ...
@@ -195,11 +195,18 @@ module: {
   rules: [
     {
       // "test" identify which files & folders should be transformed
-      type: /\.js$/,
+      test: /\.js$/,
       // "use" indicate which loaders should be used for transforming.
       use: {
         // if here only "babel-loader" you can load  options section from `.babelrc` file `presets
         loader: "babel-loader",
+        /*options: {
+            presets: [
+              "@babel/preset-env",
+              ["@babel/preset-react", { runtime: "automatic" }],
+            ],
+            plugins: ["@babel/plugin-transform-runtime"],
+          },*/
       },
       exclude: /node_modules/,
     },
@@ -218,5 +225,89 @@ touch .babelrc
     |-/
     | |-.babelrc
     |...
+
+```
+
+6. add `presets` & `plugins` to `.babelrc` file.
+
+```javascript
+{
+  "presets": ["@babel/preset-env"],
+  "plugins": ["@babel/plugin-transform-runtime"]
+}
+
+```
+
+### Configure `React` & `React-DOM` [React](https://reactjs.org/)
+
+1. install `react`, `react-dom` & `@babel/preset-react` to project
+
+```sh
+yarn add react react-dom @babel/preset-react
+or
+npm i react react-dom @babel/preset-react
+```
+
+2. update `.babelrc` file like
+
+```javascript
+{
+  "presets": [
+    "@babel/preset-env",
+    ["@babel/preset-react", { "runtime": "automatic" }]
+  ],
+  "plugins": ["@babel/plugin-transform-runtime"]
+}
+
+```
+
+### Configure [CSS-Style](https://www.w3schools.com/css/)
+
+1. install **devDependencies** `css-loader`, `style-loader`, `sass-loader` & `node-sass` to project
+
+```sh
+yarn add -D css-loader style-loader sass-loader node-sass
+
+or
+npm i --save-dev css-loader style-loader sass-loader node-sass
+```
+
+2. configure installed package inside `webpack.config.js`
+
+```javascript
+{
+  test: /\.(s[ac]|c)ss$/i,
+  use: ["style-loader", "css-loader", "sass-loader"],
+},
+```
+
+3. add `MiniCssExtractPlugin` plugin to extract css into separate file.
+
+```sh
+npm install --save-dev mini-css-extract-plugin
+or
+yarn add -D mini-css-extract-plugin
+
+```
+
+4. config `MiniCssExtractPlugin` plugin in `webpack.config.js`
+
+```javascript
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+ plugins: [
+
+    new MiniCssExtractPlugin({
+      filename: "main.css",
+      // chunkFilename:'main.css'
+    }),
+  ],
+  module:{
+    rules:[
+        {
+         test: /\.(s[ac]|c)ss$/i,
+         use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+        },
+    ]
+  }
 
 ```

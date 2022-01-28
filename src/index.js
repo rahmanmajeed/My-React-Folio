@@ -1,3 +1,11 @@
-document.getElementById('root').innerHTML=`<h1>This is from HTML</h1>`
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import "./index.css";
 
-console.log('webpack dev server started...')
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById("root")
+);
