@@ -311,3 +311,69 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
   }
 
 ```
+
+### Configure [TailwindCSS](https://tailwindcss.com/docs)
+
+1. run those following command in terminal
+
+```sh
+yarn add -D postcss postcss-cli postcss-loader postcss-preset-env
+
+touch postcss.config.js
+
+yarn add -D tailwindcss
+
+yarn add -D autoprefixer
+```
+
+2. add following code in your `postcss.config.js`
+
+```javascript
+const tailwindcss = require("tailwindcss");
+const autoprefixer = require("autoprefixer");
+
+module.exports = {
+  presets: ["postcss-preset-env"],
+  // plugins:[tailwindcss],
+  plugins: [tailwindcss("./tailwind.config.js", autoprefixer)],
+};
+```
+
+3. create `tailwind.config.js` file in project root
+
+```sh
+npx tailwind init
+```
+
+4. add those lines to `tailwind.config.js`
+
+```javascript
+module.exports = {
+  content: ["./src/**/*.{html,js}"],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+};
+```
+
+5. add tailwind **directives** to `index.css` file
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+6. configure `webpack.config.js` file rules this order
+
+```javascript
+module: {
+    rules: [
+      {
+        test: /\.(s[ac]|c)ss$/i,
+        use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader", "sass-loader"],
+      },
+    ],
+  },
+```
