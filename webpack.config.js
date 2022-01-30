@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: "development",
@@ -13,6 +14,7 @@ module.exports = {
   output: {
     filename: "main.js",
     path: path.resolve(__dirname, "dist"),
+    // assetModuleFilename: 'assets/[name][ext][query]'
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -23,6 +25,9 @@ module.exports = {
       filename: "main.css",
       // chunkFilename:'main.css'
     }),
+    new CopyPlugin({
+      patterns:[{from:'./src/assets', to:'./assets'}]
+    })
   ],
   module: {
     rules: [
@@ -47,6 +52,19 @@ module.exports = {
         test: /\.(s[ac]|c)ss$/i,
         use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader", "sass-loader"],
       },
+      {
+        test:/\.(png|jpe?g|svg|gif)$/i,
+        type:'asset',
+        //custom output location in build...
+        generator:{
+          filename:"assets/[name][ext][query]"
+        }
+      },
+      {
+        test:/.\html$/i,
+        loader:"html-loader",
+        
+      }
     ],
   },
 };

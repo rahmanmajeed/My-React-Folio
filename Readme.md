@@ -377,3 +377,48 @@ module: {
     ],
   },
 ```
+
+### Configure Miscellaneous
+
+1. config `asset` in `webpack.config.js`
+
+```javascript
+module: {
+    rules: [
+    {
+      test:/\.(png|jpe?g|svg|gif)$/i,
+        type:'asset',
+        //custom output location in build...
+        generator:{
+          filename:"assets/[name][ext][query]"
+        }
+    },
+   ],
+  },
+```
+
+2. add `html-loader` & `copy-webpack-plugin` and configure in `webpack.config.js`
+
+```javascript
+**html-loader**
+module: {
+    rules: [
+
+      {
+        test:/.\html$/i,
+        loader:"html-loader",
+
+      }
+    ],
+  },
+```
+
+```javascript
+**configure copy-webpack-plugin**
+const CopyPlugin = require('copy-webpack-plugin');
+ plugins: [
+    new CopyPlugin({
+      patterns:[{from:'./src/assets', to:'./assets'}]
+    })
+  ],
+```
