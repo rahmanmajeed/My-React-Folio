@@ -1,11 +1,20 @@
 import { useState } from "react";
+import Sidebar from "./components/shared/Sidebar/Sidebar";
+import Container from "./components/container/Container";
+
 function App() {
-  const [counter, setCounter] = useState(1);
+
   return (
     <>
-      <h1>First render from React. {counter}</h1>
-      <h1 className="text-3x underline bg-lime-700 shadow-lg">Hello world!</h1>
-      <img src='./assets/giftbox.png' alt="image"/>
+      <div className="grid gap-3 lg:gap-0 min-h-screen min-w-full transition[height] duration-1000 ease-in-out">
+        <div className="hidden md:block md:col-span-1 lg:col-span-2 bg-[#242424]">
+          <Sidebar />
+        </div>
+
+        <div className="md:col-start-2 md:col-end-13 lg:col-start-3 mlg:col-end-13 col-span-full">
+          <Container />
+        </div>
+      </div>
     </>
   );
 }
