@@ -6,7 +6,7 @@ function App() {
 
   return (
     <>
-      <div className="grid gap-3 lg:gap-0 min-h-screen min-w-full transition[height] duration-1000 ease-in-out">
+      <div className="grid gap-1 lg:gap-0 min-h-screen min-w-full auto-cols-fr transition[height] duration-1000 ease-in-out">
         <div className="hidden md:block md:col-span-1 lg:col-span-2 bg-[#242424]">
           <Sidebar />
         </div>

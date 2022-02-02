@@ -5,9 +5,9 @@
 @layer components {
   .sidebar-icon {
     @apply relative flex items-center justify-center h-12 w-12 mt-2 mb-2 mx-auto 
-    shadow-lg bg-dark-gray text-green-500 hover:bg-green-700
+    shadow-lg bg-[#424242] text-green-500 hover:bg-green-700
     hover:rounded-xl rounded-3xl
-    transition-all duration-300 ease-linear
+    transition-all duration-75 ease-linear
     cursor-pointer;
   }
 
