@@ -1,7 +1,7 @@
 function Wrapper() {
   return(
        <>
-        <div className="container mx-auto min-h-screen bg-[#F9F9F9]">container</div>
+        <div className="container mx-auto min-h-screen bg-[#fff]">container</div>
        </>
   );
 }

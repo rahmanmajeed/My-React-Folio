@@ -12,15 +12,40 @@
   }
 
   .sidebar-tooltip {
-     @apply absolute w-auto p-2 m-2 min-w-max left-14 rounded-md shadow-md
+    @apply absolute w-auto p-2 m-2 min-w-max left-14 rounded-md shadow-md
      text-white bg-gray-900 
      text-xs font-bold 
      transition-all duration-100 scale-0 origin-left;
-   }
- 
-   .sidebar-hr {
-     @apply bg-gray-200 dark:bg-gray-800 
+  }
+
+  .sidebar-hr {
+    @apply bg-gray-200 dark:bg-gray-800 
      border border-gray-200 dark:border-gray-800 rounded-full
      mx-2;
-   }
+  }
+
+  .show {
+    @apply opacity-100;
+  }
+  .hide {
+    @apply opacity-0;
+  }
+  .box {
+    @apply relative float-left w-auto h-auto bg-black text-white p-5;
+  }
+
+  /* .arrow-top {
+    @apply mt-2 
+  }
+   */
+  .arrow-top:after {
+    content: "";
+    position: absolute;
+    right: 10px;
+    top: -5px;
+    border-top: none;
+    border-right: 15px solid transparent;
+    border-left: 15px solid transparent;
+    border-bottom: 15px solid black;
+  }
 }
